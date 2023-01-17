@@ -1,13 +1,11 @@
 package com.accenture.carpooling.controller;
 
-import java.io.IOException;
-
+import java.io.IOException; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
+import org.springframework.web.bind.annotation.CrossOrigin; 
 import com.accenture.carpooling.json.JsonResponseBase;
 import com.accenture.carpooling.service.AuthenticationHandler;
 import com.fasterxml.jackson.databind.ObjectMapper; 

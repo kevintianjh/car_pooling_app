@@ -2,6 +2,8 @@ package com.accenture.carpooling.entity;
 
 import java.util.Date;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -75,4 +77,12 @@ public class Customer {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}  
+	
+	public void setNewPassword(String password) {
+		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+	}
+	
+	public boolean isPasswordMatch(String inputPw) {
+		return BCrypt.checkpw(inputPw, this.password);
+	}
 }
