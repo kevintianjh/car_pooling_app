@@ -11,26 +11,26 @@ public class AuthenticationHandler {
 	
 	private String secret = AuthenticationHandler.generateRandomSecret();
 	
-	public String generateSignature(String role, String username, String expiry) {  
-		return BCrypt.hashpw(role + username + expiry + this.secret, BCrypt.gensalt()); 
+	public String generateSignature(String role, String id, String expiry) {  
+		return BCrypt.hashpw(role + id + expiry + this.secret, BCrypt.gensalt()); 
 	}
 	
-	private boolean verifySignature(String role, String username, String expiry, String signature) {
+	private boolean verifySignature(String role, String id, String expiry, String signature) {
 		try {
-			return BCrypt.checkpw(role + username + expiry + this.secret, signature);
+			return BCrypt.checkpw(role + id + expiry + this.secret, signature);
 		}
 		catch(Exception e) {
 			return false;
 		}
 	}
 	
-	public boolean verifyRequest(String role, String username, String expiry, String signature) {
+	public boolean verifyRequest(String role, String id, String expiry, String signature) {
 		 
-		if(role == null || username == null || expiry == null || signature == null) {
+		if(role == null || id == null || expiry == null || signature == null) {
 			return false;
 		}
 		
-		if(verifySignature(role, username, expiry, signature)) { 
+		if(verifySignature(role, id, expiry, signature)) { 
 			long expiryTime = Long.parseLong(expiry);
 			long currentTime = (new Date()).getTime(); 
 			

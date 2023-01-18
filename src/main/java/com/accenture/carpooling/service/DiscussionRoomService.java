@@ -13,5 +13,5 @@ public class DiscussionRoomService {
 	
 	public List<DiscussionRoom> listByCustomerTrip(int customerId) {
 		return this.discussionRoomRepository.listByCustomerTrip(customerId);
-	}
+	} 
 }

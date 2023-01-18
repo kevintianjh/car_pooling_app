@@ -11,4 +11,5 @@ public interface DiscussionMessageRepository extends JpaRepository<DiscussionMes
 	
 	@Query("SELECT dm FROM DiscussionMessage dm WHERE dm.discussionRoom=?1")
 	public Page<DiscussionMessage> listByDiscussionRoom(Pageable pageable, DiscussionRoom discussionRoom);
+	 
 } 

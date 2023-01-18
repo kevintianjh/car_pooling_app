@@ -25,6 +25,9 @@ public class DiscussionMessage {
 	@Column(name="message")
 	private String message;
 	
+	@Column(name="fileMessage")
+	private String fileMessage;
+	
 	@ManyToOne
 	@JoinColumn(name="customer_id") 
 	private Customer customer;
@@ -70,5 +73,13 @@ public class DiscussionMessage {
 
 	public void setDiscussionRoom(DiscussionRoom discussionRoom) {
 		this.discussionRoom = discussionRoom;
-	} 
+	}
+
+	public String getFileMessage() {
+		return fileMessage;
+	}
+
+	public void setFileMessage(String fileMessage) {
+		this.fileMessage = fileMessage;
+	}   
 }

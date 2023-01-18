@@ -30,21 +30,21 @@ public class AuthenticationFilter implements Filter {
 		
 		HttpServletRequest req = (HttpServletRequest)request; 
 		String role = req.getParameter("header_role");
-		String username = req.getParameter("header_username");
+		String id = req.getParameter("header_id");
 		String expiry = req.getParameter("header_expiry");
 		String signature = req.getParameter("header_signature"); 
 		String uri = req.getRequestURI(); 
 		JsonResponseBase jsonRspBase = new JsonResponseBase();
 		 
 		if(uri.startsWith("/admin")) {
-			if(!this.authenticationHandler.verifyRequest(role, username, expiry, signature) || !role.equals("admin")) {
+			if(!this.authenticationHandler.verifyRequest(role, id, expiry, signature) || !role.equals("admin")) {
 				jsonRspBase.header_error="auth_failed";
 				response.getWriter().println(objectMapper.writeValueAsString(jsonRspBase));
 				return;
 			}
 		}
 		else if(uri.startsWith("/customer")) {
-			if(!this.authenticationHandler.verifyRequest(role, username, expiry, signature) || !role.equals("customer")) {
+			if(!this.authenticationHandler.verifyRequest(role, id, expiry, signature) || !role.equals("customer")) {
 				jsonRspBase.header_error="auth_failed";
 				response.getWriter().println(objectMapper.writeValueAsString(jsonRspBase));
 				return;

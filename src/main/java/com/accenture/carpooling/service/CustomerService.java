@@ -7,11 +7,7 @@ import org.springframework.stereotype.Service;
 import com.accenture.carpooling.entity.Customer;
 import com.accenture.carpooling.repository.CustomerRepository;
 import com.accenture.carpooling.exception.ResourceNotFoundException;
-
-
-
-
-
+ 
 @Service
 public class CustomerService {
 	
@@ -57,5 +53,16 @@ public class CustomerService {
 		
 		customerRepository.delete(customer);
 	};
-
+	
+	public Customer findByEmail(String email) {
+		return customerRepository.findByEmail(email);
+	}
+	
+	public void save(Customer newCustomer) {
+		this.customerRepository.save(newCustomer);
+	}
+	
+	public Customer findById(int customerId) {
+		return this.customerRepository.findById(customerId).get();
+	} 
 }
