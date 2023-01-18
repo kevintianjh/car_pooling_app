@@ -27,6 +27,7 @@ public class AuthenticationController {
 	 
 	@RequestMapping("/authenticate")  
 	public @ResponseBody JsonResponse m1(HttpServletRequest req) {
+		 
 		JsonResponse jsRsp = new JsonResponse();
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");

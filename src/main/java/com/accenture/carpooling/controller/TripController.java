@@ -1,7 +1,9 @@
 package com.accenture.carpooling.controller;
 
-import java.util.List; 
-import org.springframework.http.HttpStatus; 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin; 
 import org.springframework.web.bind.annotation.GetMapping; 
@@ -11,24 +13,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController; 
 import com.accenture.carpooling.entity.Customer;
+import com.accenture.carpooling.entity.DiscussionRoom;
 import com.accenture.carpooling.entity.Trip;
 import com.accenture.carpooling.json.JsonResponseBase;
+import com.accenture.carpooling.service.DiscussionRoomService;
 import com.accenture.carpooling.service.TripService; 
 import jakarta.servlet.http.HttpServletRequest;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @RestController
 @RequestMapping("/customer")
 public class TripController { 
-	private TripService tripService;
 	
-	public TripController(TripService tripService) {
-		super();
-		this.tripService = tripService;
-	}
+	@Autowired
+	private TripService tripService; 
+	@Autowired
+	private DiscussionRoomService discussionRoomService;
 	
-	@PostMapping("/trip/add")
-	public ResponseEntity<Trip> saveTrip(@RequestParam("header_id") Integer customerId, HttpServletRequest request) {
+	@PostMapping("/trip/add") 
+	public JsonResponseBase saveTrip(HttpServletRequest request) {  
+		Integer customerId = Integer.parseInt(request.getParameter("header_id"));
 		
 		Trip newTrip = new Trip();
 		newTrip.setCustomer(new Customer(customerId));
@@ -38,20 +42,27 @@ public class TripController {
 		newTrip.setDescription(request.getParameter("description"));
 		newTrip.setRole(Integer.parseInt(request.getParameter("role")));
 		newTrip.setTimeOfDay(Integer.parseInt(request.getParameter("timeOfDay"))); 
+		this.tripService.save(newTrip);  
+		 
+		if(!this.discussionRoomService.roomExists(newTrip.getFromPostal(), newTrip.getToPostal())) {
+			DiscussionRoom dr = new DiscussionRoom();
+			dr.setId(null);
+			dr.setFromPostal(newTrip.getFromPostal().substring(0, 3));
+			dr.setToPostal(newTrip.getToPostal().substring(0, 3)); 
+			this.discussionRoomService.save(dr);
+		} 
 		
-		System.out.println(newTrip);
-		
-		this.tripService.save(newTrip); 
-		
-		return new ResponseEntity<Trip>(newTrip, HttpStatus.ACCEPTED);
+		JsonResponseBase jsRsp = new JsonResponseBase();
+		jsRsp.header_rsp = "ok";
+	
+		return jsRsp;
 	}
  
 	@GetMapping("/trip/list")
 	public List<Trip> getTripsByCustomerId(@RequestParam("header_id") Integer customerId) {
 		return tripService.getTripsByCustomerId(customerId);
 	} 
-	
-
+	 
 	@GetMapping("/trip/getTripSameDest/{fromPost}/{toPost}")
 	public List<Trip> getTripsWithSameDestination(@PathVariable("fromPost") String fromPostal, @PathVariable("toPost") String toPostal) {
 		return tripService.getTripsWithSameDestination(fromPostal, toPostal);
