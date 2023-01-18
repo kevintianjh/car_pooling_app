@@ -20,7 +20,16 @@ public class CustomerService {
 	}
 	
 	public Customer saveCustomer(Customer customer) {
-		return customerRepository.save(customer);
+		Customer customer1= new Customer();
+		customer1.setEmail(customer.getEmail());
+		customer1.setUsername(customer.getUsername());
+		customer1.setName(customer.getName());
+		customer1.setNewPassword(customer.getPassword());
+		customer1.setPhone(customer.getPhone());
+		customer1.setDob(customer.getDob());
+		
+		
+		return customerRepository.save(customer1);
 	};
 	
 	public List<Customer> getAllCustomers() {
