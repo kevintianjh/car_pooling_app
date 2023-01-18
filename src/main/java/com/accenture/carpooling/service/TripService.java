@@ -17,6 +17,7 @@ import com.accenture.carpooling.repository.TripRepository;
 public class TripService {
 	
 	@Autowired private TripRepository tripRepository;
+	@Autowired private CustomerService customerService;
 	
 	public TripService(TripRepository tripRepository) {
 		super();
@@ -31,8 +32,10 @@ public class TripService {
 	
 
 	
-	public Trip saveTrip(Trip trip) {
-		Customer customer=trip.getCustomer();
+	public Trip saveTrip(Integer customerId, Trip trip) {
+		
+		Customer customer=customerService.getCustomerbyId(customerId);
+		trip.setCustomer(customer);
 		return tripRepository.save(trip);
 	};
 	
@@ -40,8 +43,8 @@ public class TripService {
 		return tripRepository.findAll();
 	};
 	
-	public Trip getTripbyId(Integer id) {
-		return tripRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Trip", "Id", id));
+	public Trip getTripbyId(Integer customerId) {
+		return tripRepository.findById(customerId).orElseThrow(()-> new ResourceNotFoundException("Trip", "Id", customerId));
 	};
 	
 	public Trip updateTrip(Trip trip, Integer id) {

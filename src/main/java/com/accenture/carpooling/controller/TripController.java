@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.accenture.carpooling.entity.Customer;
@@ -31,8 +32,8 @@ public class TripController {
 	}
 	
 	@PostMapping("/addTrip")
-	public ResponseEntity<Trip> saveTrip(@RequestBody Trip trip) {
-		return new ResponseEntity<Trip>(tripService.saveTrip(trip), HttpStatus.CREATED);
+	public ResponseEntity<Trip> saveTrip(@RequestParam("header_id") Integer customerId, @RequestBody Trip trip) {
+		return new ResponseEntity<Trip>(tripService.saveTrip(customerId, trip), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/getTrips")
@@ -40,8 +41,8 @@ public class TripController {
 		return tripService.getAllTrips();
 	}
 	
-	@GetMapping("/getTripsByPage/{id}")
-	public Page<Trip> getTripsByCustomerId( @PathVariable("id") Integer customerId) {
+	@GetMapping("/getTripsByCustomerId")
+	public Page<Trip> getTripsByCustomerId(@RequestParam("header_id") Integer customerId) {
 		return tripService.getTripsByCustomerId(customerId);
 	}
 	
