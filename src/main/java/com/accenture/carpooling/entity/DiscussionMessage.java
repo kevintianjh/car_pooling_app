@@ -34,6 +34,8 @@ public class DiscussionMessage {
 	
 	@Column(name = "date")
 	private Date date;
+	
+	private long longDate;
 
 	public Integer getId() {
 		return id;
@@ -65,6 +67,9 @@ public class DiscussionMessage {
 
 	public void setDate(Date date) {
 		this.date = date;
+		if(this.date != null) {
+			this.longDate = this.date.getTime();
+		}
 	}
 
 	public DiscussionRoom getDiscussionRoom() {
@@ -81,5 +86,13 @@ public class DiscussionMessage {
 
 	public void setFileMessage(String fileMessage) {
 		this.fileMessage = fileMessage;
-	}   
+	}
+
+	public long getLongDate() {
+		return longDate;
+	}
+
+	public void setLongDate(long longDate) {
+		this.longDate = longDate;
+	}    
 }

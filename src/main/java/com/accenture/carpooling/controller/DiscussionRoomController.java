@@ -37,6 +37,7 @@ public class DiscussionRoomController {
 	
 	public static class JsonResponse extends JsonResponseBase {
 		public List<DiscussionRoom> discussion_room_list;
+		public Customer customer;
 		public int total_message_pages;
 		public List<DiscussionMessage> message_list;
 		public DiscussionMessage added_message;
@@ -56,6 +57,7 @@ public class DiscussionRoomController {
 		}
 		
 		jsRsp.discussion_room_list = drList;
+		jsRsp.customer = this.customerService.findById(customerId);
 		return jsRsp;
 	}
 	

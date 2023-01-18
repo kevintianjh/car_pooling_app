@@ -25,11 +25,28 @@ public class DiscussionRoomController2 {
 		public Collection<String> list;
 	}
 	
+	public static class Typing {
+		public String username;
+		public String dr_id;
+	}
+	
 	private HashMap<Integer, HashMap<Integer, String>> usersOnlineMap = new HashMap<>(); 
 	
 	public void broadcastRoomNewMessage(int discussionRoomId) {
 		this.simpMessagingTemplate.convertAndSend("/client/new-message-status/"+discussionRoomId, "");
 	} 
+	
+	@MessageMapping("/typing")
+	public void typing(Typing typing) {
+		System.out.println("typing!");
+		this.simpMessagingTemplate.convertAndSend("/client/typing/" + typing.dr_id, typing);
+	}
+	
+	@MessageMapping("/stop-typing")
+	public void stopTyping(Typing typing) {
+		System.out.println("stop typing");
+		this.simpMessagingTemplate.convertAndSend("/client/stop-typing/" + typing.dr_id, typing);
+	}
 	
 	@MessageMapping("/check-in")
 	public void joinRoom(Principal principal, DiscussionRoomJson drJson) {
