@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;HEAD
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +24,7 @@ import com.accenture.carpooling.service.TripService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
+@RequestMapping("/customer")
 public class TripController {
 	
 	private TripService tripService;
@@ -41,10 +44,11 @@ public class TripController {
 		return tripService.getAllTrips();
 	}
 	
-	@GetMapping("/getTripsByCustomerId")
-	public Page<Trip> getTripsByCustomerId(@RequestParam("header_id") Integer customerId) {
+
+	@GetMapping("/trip/list")
+	public List<Trip> getTripsByCustomerId(@RequestParam("header_id") Integer customerId) {
 		return tripService.getTripsByCustomerId(customerId);
-	}
+	} 
 	
 	@PutMapping("/updateTrip/{id}")
 	public ResponseEntity<Trip> updateTrip(@PathVariable("id") Integer tripId, @RequestBody Trip trip){

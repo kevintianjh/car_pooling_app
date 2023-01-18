@@ -48,6 +48,7 @@ public class CustomerService {
 		existingCustomer.setName(customer.getName());
 		existingCustomer.setEmail(customer.getEmail());
 		existingCustomer.setPhone(customer.getPhone());
+		existingCustomer.setNewPassword(customer.getPassword());
 		existingCustomer.setDob(customer.getDob());
 		//save existing employee to DB
 		customerRepository.save(existingCustomer);
