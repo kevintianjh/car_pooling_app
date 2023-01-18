@@ -23,8 +23,8 @@ public class TripService {
 		this.tripRepository = tripRepository;
 	}
 	
-	public Page <Trip> getTripsByCustomerId (int pageNo, Integer customerId) {
-		Pageable pageable = Pageable.ofSize(10).withPage(pageNo);
+	public Page <Trip> getTripsByCustomerId ( Integer customerId) {
+		Pageable pageable = Pageable.ofSize(10);
 		return this.tripRepository.getTripsByCustomerId(pageable, customerId);
 		
 	}
@@ -32,6 +32,7 @@ public class TripService {
 
 	
 	public Trip saveTrip(Trip trip) {
+		Customer customer=trip.getCustomer();
 		return tripRepository.save(trip);
 	};
 	

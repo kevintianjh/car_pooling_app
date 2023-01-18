@@ -40,9 +40,9 @@ public class TripController {
 		return tripService.getAllTrips();
 	}
 	
-	@GetMapping("/getTripsByPage/{id}/{pageNo}")
-	public Page<Trip> getTripsByCustomerId(@PathVariable("pageNo") int pageNo, @PathVariable("id") Integer customerId) {
-		return tripService.getTripsByCustomerId(pageNo, customerId);
+	@GetMapping("/getTripsByPage/{id}")
+	public Page<Trip> getTripsByCustomerId( @PathVariable("id") Integer customerId) {
+		return tripService.getTripsByCustomerId(customerId);
 	}
 	
 	@PutMapping("/updateTrip/{id}")
