@@ -20,7 +20,16 @@ public class CustomerService {
 	}
 	
 	public Customer saveCustomer(Customer customer) {
-		return customerRepository.save(customer);
+		Customer customer1= new Customer();
+		customer1.setEmail(customer.getEmail());
+		customer1.setUsername(customer.getUsername());
+		customer1.setName(customer.getName());
+		customer1.setNewPassword(customer.getPassword());
+		customer1.setPhone(customer.getPhone());
+		customer1.setDob(customer.getDob());
+		
+		
+		return customerRepository.save(customer1);
 	};
 	
 	public List<Customer> getAllCustomers() {
@@ -39,6 +48,7 @@ public class CustomerService {
 		existingCustomer.setName(customer.getName());
 		existingCustomer.setEmail(customer.getEmail());
 		existingCustomer.setPhone(customer.getPhone());
+		existingCustomer.setNewPassword(customer.getPassword());
 		existingCustomer.setDob(customer.getDob());
 		//save existing employee to DB
 		customerRepository.save(existingCustomer);
