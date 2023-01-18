@@ -35,10 +35,6 @@ public class TripService {
 		return tripRepository.save(trip);
 	};
 	
-	public List<Trip> getAllTrips() {
-		return tripRepository.findAll();
-	};
-	
 	public Trip getTripbyId(Integer customerId) {
 		return tripRepository.findById(customerId).orElseThrow(()-> new ResourceNotFoundException("Trip", "Id", customerId));
 	};
@@ -56,16 +52,17 @@ public class TripService {
 		tripRepository.save(existingTrip);
 		return existingTrip;
 		
+	}; 
+	
+	public void deleteTrip(Trip trip) {
+		this.tripRepository.delete(trip);
 	};
 	
-	
-	public void deleteTrip(Integer id) {
-		//check whether the employee exist in database.
-		Trip trip = tripRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Employee", "Id", id));
-		
-		tripRepository.delete(trip);
-	};
-	
-
-
+	public Trip findById(Integer id) {
+		return this.tripRepository.findById(id).get();
+	}
+	 
+	public void save(Trip trip) {
+		this.tripRepository.save(trip);
+	}
 }
