@@ -20,6 +20,5 @@ public interface TripRepository extends JpaRepository<Trip, Integer>{
 	
 	@Query("select t from Trip t WHERE SUBSTRING(t.fromPostal, 1, 3)=?1 AND SUBSTRING(t.toPostal, 1, 3)=?2")
 	List<Trip> getTripsWithSameDestination(String fromPostal,String toPostal );
-	
-	
+
 }
