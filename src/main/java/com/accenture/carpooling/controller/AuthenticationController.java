@@ -45,7 +45,8 @@ public class AuthenticationController {
 		try {
 			customer = this.customerService.findByEmail(email); 
 		}
-		catch(EmptyResultDataAccessException e) {}
+		catch(EmptyResultDataAccessException e) { 
+		}
 		
 		if(customer == null || !customer.isPasswordMatch(password)) {
 			return jsRsp;
