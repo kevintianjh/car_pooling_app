@@ -6,8 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.accenture.carpooling.entity.Customer;
 import com.accenture.carpooling.json.JsonResponseBase;
 import com.accenture.carpooling.service.AuthenticationHandler;
+import com.accenture.carpooling.service.CustomerService;
+
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException; 
@@ -17,40 +21,53 @@ import org.springframework.dao.EmptyResultDataAccessException;
 public class AuthenticationController { 
 	
 	static class JsonResponse extends JsonResponseBase {}  
-	
+	 
 	@Autowired private AuthenticationHandler authenticationHandler;  
+	@Autowired private CustomerService customerService;
 	 
 	@RequestMapping("/authenticate")  
 	public @ResponseBody JsonResponse m1(HttpServletRequest req) {
 		JsonResponse jsRsp = new JsonResponse();
-		String username = req.getParameter("username");
+		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		String role = req.getParameter("role");
 		
-		if(username == null || password == null || role == null || !(role.equals("admin") || role.equals("customer"))) {
+		if(email == null || password == null || role == null || !(role.equals("admin") || role.equals("customer"))) {
 			return jsRsp;
 		}
 		
-		if(username.length() > 20 || password.length() > 20) {
+		if(email.length() > 30 || password.length() > 20) {
 			return jsRsp;
 		}
 		
-		//User loginUser = null;
+		Customer customer = null;  
 		
 		try {
-			//loginUser = 
+			customer = this.customerService.findByEmail(email); 
 		}
 		catch(EmptyResultDataAccessException e) {}
 		
-		 
+		if(customer == null || !customer.isPasswordMatch(password)) {
+			return jsRsp;
+		} 
 		  
 		jsRsp.header_rsp = "ok";
 		jsRsp.header_expiry = this.authenticationHandler.generateUpdatedExpiry();
 		jsRsp.header_role = role;
-		jsRsp.header_username = username; 
-		jsRsp.header_signature = this.authenticationHandler.generateSignature(jsRsp.header_role, username, jsRsp.header_expiry);
+		jsRsp.header_id = String.valueOf(customer.getId()); 
+		jsRsp.header_signature = this.authenticationHandler.generateSignature(jsRsp.header_role, String.valueOf(customer.getId()), jsRsp.header_expiry);
 		
-		return jsRsp; 
-	} 
-	 
+		return jsRsp;  
+	}  
+	
+	@RequestMapping("/test")
+	public String test() {
+		Customer cust = this.customerService.findByEmail("kevin@gmail.com");
+		cust.setNewPassword("password");
+		cust.setUsername("kevin123");
+		cust.setDob(new Date());
+		cust.setPhone("91993718");
+		this.customerService.save(cust);
+		return "HEHE!";
+	}
 } 

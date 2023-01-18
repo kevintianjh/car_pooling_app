@@ -122,15 +122,11 @@ public class Customer {
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
-		this.dob = dob;
-
+		this.dob = dob; 
 	}
 
 	public Customer() {
 		super();
-	}
-	
-
-	
+	} 
 	
 }
