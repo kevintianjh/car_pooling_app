@@ -17,7 +17,8 @@ public interface TripRepository extends JpaRepository<Trip, Integer>{
 
 	@Query("select t from Trip t where t.customer.id=?1")
 	public List<Trip> getTripsByCustomerId(Integer customerId);
-		
-//	Page<Trip> findByPostalFromContaining(@Param("from_postal") String fromPostal, Pageable pageable );
 	
+	@Query("select t from Trip t WHERE SUBSTRING(t.fromPostal, 1, 3)=?1 AND SUBSTRING(t.toPostal, 1, 3)=?2")
+	List<Trip> getTripsWithSameDestination(String fromPostal,String toPostal );
+
 }
