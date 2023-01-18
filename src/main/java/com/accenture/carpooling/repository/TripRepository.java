@@ -16,7 +16,7 @@ import com.accenture.carpooling.entity.Trip;
 public interface TripRepository extends JpaRepository<Trip, Integer>{
 
 	@Query("select t from Trip t where t.customer.id=?1")
-	public Page <Trip> getTripsByCustomerId (Pageable pageable, Integer customerId);
+	public List<Trip> getTripsByCustomerId(Integer customerId);
 		
 //	Page<Trip> findByPostalFromContaining(@Param("from_postal") String fromPostal, Pageable pageable );
 	

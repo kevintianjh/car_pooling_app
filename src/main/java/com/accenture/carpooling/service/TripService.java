@@ -23,13 +23,9 @@ public class TripService {
 		this.tripRepository = tripRepository;
 	}
 	
-	public Page <Trip> getTripsByCustomerId ( Integer customerId) {
-		Pageable pageable = Pageable.ofSize(10);
-		return this.tripRepository.getTripsByCustomerId(pageable, customerId);
-		
-	}
-	
-
+	public List<Trip> getTripsByCustomerId (Integer customerId) { 
+		return this.tripRepository.getTripsByCustomerId(customerId); 
+	} 
 	
 	public Trip saveTrip(Trip trip) {
 		Customer customer=trip.getCustomer();
@@ -51,8 +47,7 @@ public class TripService {
 		
 		existingTrip.setFromPostal(trip.getFromPostal());
 		existingTrip.setToPostal(trip.getToPostal());
-		existingTrip.setRole(trip.getRole());
-		existingTrip.setTags(trip.getTags());
+		existingTrip.setRole(trip.getRole()); 
 		existingTrip.setDescription(trip.getDescription());
 		//save existing employee to DB
 		tripRepository.save(existingTrip);

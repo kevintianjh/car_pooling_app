@@ -1,6 +1,4 @@
-package com.accenture.carpooling.entity;
-
-
+package com.accenture.carpooling.entity; 
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,13 +30,14 @@ public class Trip {
 	@Column(name="role")
 	private Integer role; //1 denotes Driver, 2 denotes Passenger
 	
-	@Column(name = "tags")
-	private String tags;
+	@Column(name="days")
+	public String days; //CSV string values of 1-7 e.g "1,2,5"
 	
+	@Column(name="timeOfDay")
+	public int timeOfDay; //Integer value: 1 denotes morning, 2 denotes afternoon, 3 denotes evening
+	 
 	@Column(name = "description")
-	private String description;
-	
-
+	private String description; 
 
 	public Integer getId() {
 		return id;
@@ -79,20 +78,28 @@ public class Trip {
 	public void setRole(Integer role) {
 		this.role = role;
 	}
-
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
-
+ 
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
-	}   
+	}
+
+	public String getDays() {
+		return days;
+	}
+
+	public void setDays(String days) {
+		this.days = days;
+	}
+
+	public int getTimeOfDay() {
+		return timeOfDay;
+	}
+
+	public void setTimeOfDay(int timeOfDay) {
+		this.timeOfDay = timeOfDay;
+	}    
 }
