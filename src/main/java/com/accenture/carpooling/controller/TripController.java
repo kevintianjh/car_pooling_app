@@ -5,19 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin; 
 import org.springframework.web.bind.annotation.GetMapping; 
-import org.springframework.web.bind.annotation.PostMapping; 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping; 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;  
+import org.springframework.web.bind.annotation.RequestMapping;  
+import org.springframework.web.bind.annotation.PathVariable;  
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController; 
+import com.accenture.carpooling.entity.Customer;
 import com.accenture.carpooling.entity.Trip;
 import com.accenture.carpooling.json.JsonResponseBase;
 import com.accenture.carpooling.service.TripService; 
@@ -34,11 +27,25 @@ public class TripController {
 		this.tripService = tripService;
 	}
 	
-	@PostMapping("/addTrip/{customerId}")
-	public ResponseEntity<Trip> saveTrip(@PathVariable("customerId") Integer customerId, @RequestBody Trip trip) {
-		return new ResponseEntity<Trip>(tripService.saveTrip(customerId, trip), HttpStatus.CREATED);
+	@PostMapping("/trip/add")
+	public ResponseEntity<Trip> saveTrip(@RequestParam("header_id") Integer customerId, HttpServletRequest request) {
+		
+		Trip newTrip = new Trip();
+		newTrip.setCustomer(new Customer(customerId));
+		newTrip.setFromPostal(request.getParameter("fromPostal"));
+		newTrip.setToPostal(request.getParameter("toPostal"));
+		newTrip.setDays(request.getParameter("days"));
+		newTrip.setDescription(request.getParameter("description"));
+		newTrip.setRole(Integer.parseInt(request.getParameter("role")));
+		newTrip.setTimeOfDay(Integer.parseInt(request.getParameter("timeOfDay"))); 
+		
+		System.out.println(newTrip);
+		
+		this.tripService.save(newTrip); 
+		
+		return new ResponseEntity<Trip>(newTrip, HttpStatus.ACCEPTED);
 	}
-
+ 
 	@GetMapping("/trip/list")
 	public List<Trip> getTripsByCustomerId(@RequestParam("header_id") Integer customerId) {
 		return tripService.getTripsByCustomerId(customerId);
