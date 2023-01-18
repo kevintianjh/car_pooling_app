@@ -1,5 +1,7 @@
 package com.accenture.carpooling.entity;
 
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,8 +19,8 @@ public class Trip {
 	@Column(name="id")
 	private Integer id;
 	
-	@JoinColumn(name="customer_id")
 	@ManyToOne
+	@JoinColumn(name="customer_id")
 	private Customer customer;
 	
 	@Column(name="from_postal")
@@ -35,6 +37,8 @@ public class Trip {
 	
 	@Column(name = "description")
 	private String description;
+	
+
 
 	public Integer getId() {
 		return id;

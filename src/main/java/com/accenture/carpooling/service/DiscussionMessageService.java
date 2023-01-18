@@ -16,4 +16,8 @@ public class DiscussionMessageService {
 		Pageable pageable = Pageable.ofSize(10).withPage(pageNo);
 		return this.discussionMessageRepository.listByDiscussionRoom(pageable, new DiscussionRoom(discussionRoomId));
 	}
+	
+	public DiscussionMessage save(DiscussionMessage discussionMessage) {
+		return this.discussionMessageRepository.save(discussionMessage);
+	}
 }
