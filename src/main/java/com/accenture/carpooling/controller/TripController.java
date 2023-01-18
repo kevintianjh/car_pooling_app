@@ -50,6 +50,11 @@ public class TripController {
 		return tripService.getTripsByCustomerId(customerId);
 	} 
 	
+	@GetMapping("/trip/getTripSameDest/{fromPost}/{toPost}")
+	public List<Trip> getTripsWithSameDestination(@PathVariable("fromPost") String fromPostal, @PathVariable("toPost") String toPostal) {
+		return tripService.getTripsWithSameDestination(fromPostal, toPostal);
+	} 
+	
 	@PutMapping("/updateTrip/{id}")
 	public ResponseEntity<Trip> updateTrip(@PathVariable("id") Integer tripId, @RequestBody Trip trip){
 		return new ResponseEntity<Trip>(tripService.updateTrip(trip, tripId), HttpStatus.OK);

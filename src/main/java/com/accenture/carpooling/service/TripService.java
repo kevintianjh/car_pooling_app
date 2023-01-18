@@ -64,6 +64,12 @@ public class TripService {
 		Trip trip = tripRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Employee", "Id", id));
 		
 		tripRepository.delete(trip);
+	}
+
+	public List<Trip> getTripsWithSameDestination(String fromPostal, String toPostal) {
+		fromPostal.substring(0,3);
+		toPostal.substring(0, 3);
+		return tripRepository.getTripsWithSameDestination(fromPostal, toPostal);
 	};
 	
 
