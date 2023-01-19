@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @CrossOrigin
 @RestController
-@RequestMapping
+@RequestMapping("/customer")
 public class TripController { 
 	
 	@Autowired
