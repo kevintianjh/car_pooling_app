@@ -36,28 +36,12 @@ public class CustomerController {
 		return new ResponseEntity<Customer>(customerService.saveCustomer(customer), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/getCustomers")
-	public List<Customer> getAllEmployees() {
-		return customerService.getAllCustomers();
-	}
 	
 	@GetMapping("/getCustomer/{id}")
 	public ResponseEntity<Customer> getCustomerbyId(@PathVariable("id") Integer customerId) {
 		return new ResponseEntity<Customer>(customerService.getCustomerbyId(customerId), HttpStatus.OK);
 	}
 	
-	@PutMapping("/updateCustomer/{id}")
-	public ResponseEntity<Customer> updateEmployee(@PathVariable("id") Integer customerId, @RequestBody Customer customer){
-		return new ResponseEntity<Customer>(customerService.updateCustomer(customer, customerId), HttpStatus.OK);
-		
-	}
-	
-	@DeleteMapping({"/deleteCustomer/{id}"})
-	public ResponseEntity<String> deleteEmployee(@PathVariable("id") Integer id) {
-		customerService.deleteCustomer(id);
-		return new ResponseEntity<String>("Customer Deleted Successfully", HttpStatus.OK);
-		
-	}
 	
 	@GetMapping("/test")
 	public String test() {

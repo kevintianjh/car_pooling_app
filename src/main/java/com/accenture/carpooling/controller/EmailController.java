@@ -14,21 +14,25 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestController
 @CrossOrigin
 @RequestMapping("/customer")
-public class EmailController {
+public class EmailController { 
 	
 	@Autowired private CustomerService customerService;
 	@Autowired private EmailService emailService;
 	
 	@PostMapping("/send-email")
-	public JsonResponseBase m1(HttpServletRequest request) {
+	public JsonResponseBase m1(HttpServletRequest request) { 
 		Integer customerId = Integer.parseInt(request.getParameter("header_id"));
 		Integer toCustomerId = Integer.parseInt(request.getParameter("to_id"));
 		String message = request.getParameter("message");
 		
+		System.out.println("HELLO " + message);
+		
 		Customer customer = this.customerService.findById(customerId);
 		Customer toCustomer = this.customerService.findById(toCustomerId);
 		
-		String mailTo = toCustomer.getEmail(); 
+		System.out.println("HELLO " + toCustomer);
+		
+		String mailTo = "tianjhenhaokevin@gmail.com";
 		String subject = "Tompang: Message from @" + customer.getUsername(); 
 		
 		this.emailService.sendEmail(mailTo, subject, message);
