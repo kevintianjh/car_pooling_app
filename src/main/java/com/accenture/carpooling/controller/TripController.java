@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/customer")
+@RequestMapping
 public class TripController { 
 	private TripService tripService;
 	
@@ -45,9 +45,9 @@ public class TripController {
 	} 
 	
 
-	@GetMapping("/trip/getTripSameDest/{fromPost}/{toPost}")
-	public List<Trip> getTripsWithSameDestination(@PathVariable("fromPost") String fromPostal, @PathVariable("toPost") String toPostal) {
-		return tripService.getTripsWithSameDestination(fromPostal, toPostal);
+	@GetMapping("/trip/getTripSameDest/{fromPost}/{toPost}/{days}/{timeOfDay}")
+	public List<Trip> getTripsWithSameDestination(@PathVariable("fromPost") String fromPostal, @PathVariable("toPost") String toPostal, @PathVariable("days") String days, @PathVariable("timeOfDay") String timeOfDay) {
+		return tripService.getTripsWithSameDestination(fromPostal, toPostal, days, timeOfDay);
 	} 
 
 	@PostMapping("/trip/update")
@@ -63,7 +63,7 @@ public class TripController {
 		retrievedTrip.setDays(request.getParameter("days"));
 		retrievedTrip.setDescription(request.getParameter("description"));
 		retrievedTrip.setRole(Integer.parseInt(request.getParameter("role")));
-		retrievedTrip.setTimeOfDay(Integer.parseInt(request.getParameter("timeOfDay"))); 
+		retrievedTrip.setTimeOfDay((request.getParameter("timeOfDay"))); 
 		this.tripService.save(retrievedTrip); 
 		JsonResponseBase rsp = new JsonResponseBase();
 		rsp.header_rsp = "ok";

@@ -70,10 +70,10 @@ public class TripService {
 
 	
 
-	public List<Trip> getTripsWithSameDestination(String fromPostal, String toPostal) {
-		fromPostal.substring(0,3);
-		toPostal.substring(0, 3);
-		return tripRepository.getTripsWithSameDestination(fromPostal, toPostal);
+	public List<Trip> getTripsWithSameDestination(String fromPostal, String toPostal,String day, String timeOfDay) {
+		String fromPostal1=fromPostal.substring(0,3);
+		String toPostal1=toPostal.substring(0, 3);
+		return tripRepository.getTripsWithSameDestination(fromPostal1, toPostal1, day, timeOfDay);
 	};
 	
 	public Trip findById(Integer id) {
