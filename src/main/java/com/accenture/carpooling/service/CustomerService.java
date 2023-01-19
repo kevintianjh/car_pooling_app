@@ -1,9 +1,6 @@
 package com.accenture.carpooling.service;
-
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
+ 
+import org.springframework.stereotype.Service; 
 import com.accenture.carpooling.entity.Customer;
 import com.accenture.carpooling.repository.CustomerRepository;
 import com.accenture.carpooling.exception.ResourceNotFoundException;
@@ -11,8 +8,7 @@ import com.accenture.carpooling.exception.ResourceNotFoundException;
 @Service
 public class CustomerService {
 	
-	private CustomerRepository customerRepository;
-	
+	private CustomerRepository customerRepository; 
 	
 	public CustomerService(CustomerRepository customerRepository) {
 		super();
@@ -20,22 +16,12 @@ public class CustomerService {
 	}
 	
 	public Customer saveCustomer(Customer customer) {
-		Customer customer1= new Customer();
-		customer1.setEmail(customer.getEmail());
-		customer1.setUsername(customer.getUsername());
-		customer1.setName(customer.getName());
-		customer1.setNewPassword(customer.getPassword());
-		customer1.setPhone(customer.getPhone());
-		customer1.setDob(customer.getDob());
-		return customerRepository.save(customer1);
-	};
-	
+		return customerRepository.save(customer);
+	}; 
 	
 	public Customer getCustomerbyId(Integer id) {
 		return customerRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Customer", "Id", id));
-	};
-
-	
+	};  
 
 	public Customer findByEmail(String email) {
 		return customerRepository.findByEmail(email);

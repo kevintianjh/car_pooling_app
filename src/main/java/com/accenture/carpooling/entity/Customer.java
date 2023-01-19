@@ -41,9 +41,7 @@ public class Customer {
 	private String phone;
 	
 	@Column(name = "dob")
-	private Date dob;
-	
-
+	private Date dob; 
 
 	public String getPassword() {
 		return password;
@@ -109,9 +107,7 @@ public class Customer {
 	
 	public boolean isPasswordMatch(String inputPw) {
 		return BCrypt.checkpw(inputPw, this.password);
-	}
-
-
+	} 
 
 	public Customer(Integer id, String password, String username, String name, String email, String phone, Date dob
 			) {

@@ -37,6 +37,8 @@ public class CustomerController {
 	
 	@PostMapping("/register")
 	public ResponseEntity<Customer> saveCustomer(HttpServletRequest request) throws ParseException {
+		System.out.println("PW IS '" + request.getParameter("password") + "'");
+		
 		Customer newCustomer = new Customer();
 		newCustomer.setName(request.getParameter("name"));
 		newCustomer.setPhone(request.getParameter("phone"));
