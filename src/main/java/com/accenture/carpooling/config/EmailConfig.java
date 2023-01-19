@@ -1,4 +1,4 @@
-package com.accenture.carpooling.controller;
+package com.accenture.carpooling.config;
 
 import java.util.Properties;
 
