@@ -17,7 +17,7 @@ import com.accenture.carpooling.service.DiscussionRoomService;
 import com.accenture.carpooling.service.TripService; 
 import jakarta.servlet.http.HttpServletRequest;
 
-@CrossOrigin
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
 @RequestMapping("/customer")
 public class TripController { 

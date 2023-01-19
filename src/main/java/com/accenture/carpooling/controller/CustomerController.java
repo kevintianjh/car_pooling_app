@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.accenture.carpooling.entity.Customer;
 import com.accenture.carpooling.service.CustomerService;
 import com.accenture.carpooling.service.EmailService;
+
+import jakarta.servlet.http.HttpServletRequest;
  
 import jakarta.servlet.http.HttpServletRequest;
  
