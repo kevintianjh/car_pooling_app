@@ -27,6 +27,7 @@ public class AuthenticationController {
 	 
 	@RequestMapping("/authenticate")  
 	public @ResponseBody JsonResponse m1(HttpServletRequest req) {
+		 
 		JsonResponse jsRsp = new JsonResponse();
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
@@ -45,7 +46,8 @@ public class AuthenticationController {
 		try {
 			customer = this.customerService.findByEmail(email); 
 		}
-		catch(EmptyResultDataAccessException e) {}
+		catch(EmptyResultDataAccessException e) { 
+		}
 		
 		if(customer == null || !customer.isPasswordMatch(password)) {
 			return jsRsp;

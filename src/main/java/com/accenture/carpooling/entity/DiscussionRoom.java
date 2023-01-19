@@ -49,6 +49,10 @@ public class DiscussionRoom {
 
 	public void setToPostal(String toPostal) {
 		this.toPostal = toPostal;
-	} 
+	}
 
+	@Override
+	public String toString() {
+		return "DiscussionRoom [id=" + id + ", fromPostal=" + fromPostal + ", toPostal=" + toPostal + "]";
+	}  
 }

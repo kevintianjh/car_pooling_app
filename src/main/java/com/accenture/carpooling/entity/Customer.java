@@ -129,4 +129,8 @@ public class Customer {
 		super();
 	} 
 	
+	public Customer(Integer id) {
+		this.id = id;
+	}
+	
 }

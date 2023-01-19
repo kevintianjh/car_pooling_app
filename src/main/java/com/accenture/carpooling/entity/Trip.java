@@ -12,6 +12,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "trip")
 public class Trip {
+	
+	public Trip() {}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
@@ -101,5 +104,12 @@ public class Trip {
 
 	public void setTimeOfDay(String timeOfDay) {
 		this.timeOfDay = timeOfDay;
-	}    
+	}
+
+	@Override
+	public String toString() {
+		return "Trip [id=" + id + ", customer=" + customer + ", fromPostal=" + fromPostal + ", toPostal=" + toPostal
+				+ ", role=" + role + ", days=" + days + ", timeOfDay=" + timeOfDay + ", description=" + description
+				+ "]";
+	}      
 }
