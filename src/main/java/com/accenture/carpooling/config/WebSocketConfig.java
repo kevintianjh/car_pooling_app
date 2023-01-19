@@ -1,4 +1,4 @@
-package com.accenture.carpooling.controller;
+package com.accenture.carpooling.config;
  
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -74,4 +74,3 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	} 
   } 
 }
-

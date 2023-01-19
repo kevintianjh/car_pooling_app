@@ -129,4 +129,13 @@ public class Customer {
 		super();
 	} 
 	
+	public Customer(Integer id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", password=" + password + ", username=" + username + ", name=" + name
+				+ ", email=" + email + ", phone=" + phone + ", dob=" + dob + "]";
+	} 
 }

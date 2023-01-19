@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.accenture.carpooling.entity.Customer;
 import com.accenture.carpooling.service.CustomerService;
+import com.accenture.carpooling.service.EmailService;
  
 import jakarta.servlet.http.HttpServletRequest;
  
@@ -48,28 +50,12 @@ public class CustomerController {
 		return new ResponseEntity<Customer>(customerService.saveCustomer(newCustomer), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/getCustomers")
-	public List<Customer> getAllEmployees() {
-		return customerService.getAllCustomers();
-	}
 	
 	@GetMapping("/getCustomer/{id}")
 	public ResponseEntity<Customer> getCustomerbyId(@PathVariable("id") Integer customerId) {
 		return new ResponseEntity<Customer>(customerService.getCustomerbyId(customerId), HttpStatus.OK);
 	}
 	
-	@PutMapping("/updateCustomer/{id}")
-	public ResponseEntity<Customer> updateEmployee(@PathVariable("id") Integer customerId, @RequestBody Customer customer){
-		return new ResponseEntity<Customer>(customerService.updateCustomer(customer, customerId), HttpStatus.OK);
-		
-	}
-	
-	@DeleteMapping({"/deleteCustomer/{id}"})
-	public ResponseEntity<String> deleteEmployee(@PathVariable("id") Integer id) {
-		customerService.deleteCustomer(id);
-		return new ResponseEntity<String>("Customer Deleted Successfully", HttpStatus.OK);
-		
-	}
 	
 	@GetMapping("/test")
 	public String test() {
@@ -83,6 +69,15 @@ public class CustomerController {
 		
 		this.customerService.save(newCustomer);
 		return "success";
+	}
+	
+	@Autowired private EmailService emailService;
+	
+	@GetMapping("/test2")
+	public String test2() {
+		this.emailService.sendEmail("tianjhenhaokevin@gmail.com", "New Message from @kevin123", "Want to tompang?");
+		
+		return "SUCCESS!"; 
 	}
 
 }

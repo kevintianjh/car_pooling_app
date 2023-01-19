@@ -12,6 +12,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "trip")
 public class Trip {
+	
+	public Trip() {}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
@@ -34,7 +37,7 @@ public class Trip {
 	public String days; //CSV string values of 1-7 e.g "1,2,5"
 	
 	@Column(name="timeOfDay")
-	public int timeOfDay; //Integer value: 1 denotes morning, 2 denotes afternoon, 3 denotes evening
+	public String timeOfDay; //Integer value: 1 denotes morning, 2 denotes afternoon, 3 denotes evening
 	 
 	@Column(name = "description")
 	private String description; 
@@ -95,11 +98,18 @@ public class Trip {
 		this.days = days;
 	}
 
-	public int getTimeOfDay() {
+	public String getTimeOfDay() {
 		return timeOfDay;
 	}
 
-	public void setTimeOfDay(int timeOfDay) {
+	public void setTimeOfDay(String timeOfDay) {
 		this.timeOfDay = timeOfDay;
-	}    
+	}
+
+	@Override
+	public String toString() {
+		return "Trip [id=" + id + ", customer=" + customer + ", fromPostal=" + fromPostal + ", toPostal=" + toPostal
+				+ ", role=" + role + ", days=" + days + ", timeOfDay=" + timeOfDay + ", description=" + description
+				+ "]";
+	}      
 }

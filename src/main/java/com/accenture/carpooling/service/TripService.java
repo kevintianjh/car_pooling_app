@@ -19,11 +19,6 @@ public class TripService {
 	@Autowired private TripRepository tripRepository;
 	@Autowired private CustomerService customerService;
 	
-	public TripService(TripRepository tripRepository) {
-		super();
-		this.tripRepository = tripRepository;
-	}
-	
 	public List<Trip> getTripsByCustomerId (Integer customerId) { 
 		return this.tripRepository.getTripsByCustomerId(customerId); 
 	} 
@@ -33,10 +28,6 @@ public class TripService {
 		Customer customer=customerService.getCustomerbyId(customerId);
 		trip.setCustomer(customer);
 		return tripRepository.save(trip);
-	};
-	
-	public List<Trip> getAllTrips() {
-		return tripRepository.findAll();
 	};
 	
 	public Trip getTripbyId(Integer customerId) {
@@ -56,16 +47,24 @@ public class TripService {
 		tripRepository.save(existingTrip);
 		return existingTrip;
 		
+	}; 
+	
+	public void deleteTrip(Trip trip) {
+		this.tripRepository.delete(trip);
 	};
-	
-	
-	public void deleteTrip(Integer id) {
-		//check whether the employee exist in database.
-		Trip trip = tripRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Employee", "Id", id));
-		
-		tripRepository.delete(trip);
-	};
-	
 
+	public List<Trip> getTripsWithSameDestination(String fromPostal, String toPostal,String day, String timeOfDay) {
+		String fromPostal1=fromPostal.substring(0,3);
+		String toPostal1=toPostal.substring(0, 3);
+		return tripRepository.getTripsWithSameDestination(fromPostal1, toPostal1, day, timeOfDay);
+	};
+	
+	public Trip findById(Integer id) {
+		return this.tripRepository.findById(id).get();
+	}
+	 
+	public void save(Trip trip) {
+		this.tripRepository.save(trip);
+	}
 
 }
