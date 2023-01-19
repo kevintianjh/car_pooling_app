@@ -29,7 +29,7 @@ public class EmailController {
 		Customer toCustomer = this.customerService.findById(toCustomerId);
 		
 		String mailTo = toCustomer.getEmail(); 
-		String subject = "A message from @" + customer.getUsername(); 
+		String subject = "Tompang: Message from @" + customer.getUsername(); 
 		
 		this.emailService.sendEmail(mailTo, subject, message);
 		JsonResponseBase jsRsp = new JsonResponseBase();
