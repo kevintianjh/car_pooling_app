@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException; 
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins="http://localhost:4200")
 public class AuthenticationController { 
 	
 	static class JsonResponse extends JsonResponseBase {}  
