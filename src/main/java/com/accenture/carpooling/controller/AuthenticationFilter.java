@@ -16,9 +16,9 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 
-@Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
-@CrossOrigin
+//@Component
+//@Order(Ordered.HIGHEST_PRECEDENCE)
+//@CrossOrigin
 public class AuthenticationFilter implements Filter {  
 	
 	private ObjectMapper objectMapper = new ObjectMapper();
