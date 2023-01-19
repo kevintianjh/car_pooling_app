@@ -4,15 +4,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.RestController; 
 import com.accenture.carpooling.entity.Customer;
 import com.accenture.carpooling.json.JsonResponseBase;
 import com.accenture.carpooling.service.AuthenticationHandler;
-import com.accenture.carpooling.service.CustomerService;
-
-import java.util.Date;
-
+import com.accenture.carpooling.service.CustomerService; 
+import java.util.Date; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException; 
 
@@ -45,8 +42,6 @@ public class AuthenticationController {
 		
 		try {
 			customer = this.customerService.findByEmail(email); 
-		}
-		catch(EmptyResultDataAccessException e) { 
 		}
 		catch(EmptyResultDataAccessException e) {}
 		
