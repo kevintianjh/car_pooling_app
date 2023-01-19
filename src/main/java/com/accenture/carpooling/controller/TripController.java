@@ -63,8 +63,12 @@ public class TripController {
 
 	
 
-	@GetMapping("/trip/getTripSameDest/{fromPost}/{toPost}/{days}/{timeOfDay}")
-	public List<Trip> getTripsWithSameDestination(@PathVariable("fromPost") String fromPostal, @PathVariable("toPost") String toPostal, @PathVariable("days") String days, @PathVariable("timeOfDay") String timeOfDay) {
+	@GetMapping("/trip/getTripSameDest")
+	public List<Trip> getTripsWithSameDestination(@RequestParam("fromPostal") String fromPostal, 
+			                                      @RequestParam("toPostal") String toPostal, 
+			                                      @RequestParam("days") String days, 
+			                                      @RequestParam("timeOfDay") String timeOfDay) {
+		
 		return tripService.getTripsWithSameDestination(fromPostal, toPostal, days, timeOfDay);
 	}
 
