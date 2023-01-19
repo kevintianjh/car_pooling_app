@@ -19,11 +19,6 @@ public class TripService {
 	@Autowired private TripRepository tripRepository;
 	@Autowired private CustomerService customerService;
 	
-	public TripService(TripRepository tripRepository) {
-		super();
-		this.tripRepository = tripRepository;
-	}
-	
 	public List<Trip> getTripsByCustomerId (Integer customerId) { 
 		return this.tripRepository.getTripsByCustomerId(customerId); 
 	} 
@@ -57,18 +52,6 @@ public class TripService {
 	public void deleteTrip(Trip trip) {
 		this.tripRepository.delete(trip);
 	};
-	
-
-
-	
-	public void deleteTrip(Integer id) {
-		//check whether the employee exist in database.
-		Trip trip = tripRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Employee", "Id", id));
-		
-		tripRepository.delete(trip);
-	}
-
-	
 
 	public List<Trip> getTripsWithSameDestination(String fromPostal, String toPostal,String day, String timeOfDay) {
 		String fromPostal1=fromPostal.substring(0,3);

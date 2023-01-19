@@ -30,24 +30,28 @@ public class DiscussionRoomController2 {
 		public String dr_id;
 	}
 	
+	//Map to show all users online categorize by Discussion Room ID
 	private HashMap<Integer, HashMap<Integer, String>> usersOnlineMap = new HashMap<>(); 
 	
+	//Used by DiscussionRoomController to notify all users inside the room to refresh 
+	//for new message
 	public void broadcastRoomNewMessage(int discussionRoomId) {
 		this.simpMessagingTemplate.convertAndSend("/client/new-message-status/"+discussionRoomId, "");
 	} 
 	
+	//Send by user on typing event
 	@MessageMapping("/typing")
-	public void typing(Typing typing) {
-		System.out.println("typing!");
+	public void typing(Typing typing) { 
 		this.simpMessagingTemplate.convertAndSend("/client/typing/" + typing.dr_id, typing);
 	}
 	
+	//Send by user when stops typing
 	@MessageMapping("/stop-typing")
-	public void stopTyping(Typing typing) {
-		System.out.println("stop typing");
+	public void stopTyping(Typing typing) { 
 		this.simpMessagingTemplate.convertAndSend("/client/stop-typing/" + typing.dr_id, typing);
 	}
 	
+	//Check-in
 	@MessageMapping("/check-in")
 	public void joinRoom(Principal principal, DiscussionRoomJson drJson) {
 		Integer drIdInt = Integer.parseInt(drJson.dr_id);

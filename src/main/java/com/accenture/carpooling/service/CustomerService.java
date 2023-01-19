@@ -27,43 +27,16 @@ public class CustomerService {
 		customer1.setNewPassword(customer.getPassword());
 		customer1.setPhone(customer.getPhone());
 		customer1.setDob(customer.getDob());
-		
-		
 		return customerRepository.save(customer1);
 	};
 	
-	public List<Customer> getAllCustomers() {
-		return customerRepository.findAll();
-	};
 	
 	public Customer getCustomerbyId(Integer id) {
 		return customerRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Customer", "Id", id));
 	};
+
 	
-	public Customer updateCustomer(Customer customer, Integer id) {
-		//check whether customer exists in the database
-		Customer existingCustomer= customerRepository.findById(id).orElseThrow(
-				()-> new ResourceNotFoundException("Customer", "Id", id));
-		
-		existingCustomer.setName(customer.getName());
-		existingCustomer.setEmail(customer.getEmail());
-		existingCustomer.setPhone(customer.getPhone());
-		existingCustomer.setNewPassword(customer.getPassword());
-		existingCustomer.setDob(customer.getDob());
-		//save existing employee to DB
-		customerRepository.save(existingCustomer);
-		return existingCustomer;
-		
-	};
-	
-	
-	public void deleteCustomer(Integer id) {
-		//check whether the employee exist in database.
-		Customer customer = customerRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Employee", "Id", id));
-		
-		customerRepository.delete(customer);
-	};
-	
+
 	public Customer findByEmail(String email) {
 		return customerRepository.findByEmail(email);
 	}

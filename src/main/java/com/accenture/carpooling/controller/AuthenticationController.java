@@ -48,6 +48,7 @@ public class AuthenticationController {
 		}
 		catch(EmptyResultDataAccessException e) { 
 		}
+		catch(EmptyResultDataAccessException e) {}
 		
 		if(customer == null || !customer.isPasswordMatch(password)) {
 			return jsRsp;

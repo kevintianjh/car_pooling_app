@@ -16,9 +16,15 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 
+<<<<<<< HEAD
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @CrossOrigin(origins="http://localhost:4200")
+=======
+//@Component
+//@Order(Ordered.HIGHEST_PRECEDENCE)
+//@CrossOrigin
+>>>>>>> 338706c1649675da8d8a03154d2e596f69882bf8
 public class AuthenticationFilter implements Filter {  
 	
 	private ObjectMapper objectMapper = new ObjectMapper();
