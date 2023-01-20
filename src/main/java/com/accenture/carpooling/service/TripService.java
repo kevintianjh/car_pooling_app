@@ -53,10 +53,17 @@ public class TripService {
 		this.tripRepository.delete(trip);
 	};
 
-	public List<Trip> getTripsWithSameDestination(String fromPostal, String toPostal,String day, String timeOfDay) {
+	public List<Trip> getTripsWithSameDestination(String fromPostal, String toPostal,String days, String timeOfDay, String customerId) {
 		String fromPostal1=fromPostal.substring(0,3);
 		String toPostal1=toPostal.substring(0, 3);
-		return tripRepository.getTripsWithSameDestination(fromPostal1, toPostal1, day, timeOfDay);
+		
+		//insert '%' in between each char in 'days' string
+		String newDays="%";
+		for(int i=0;i<days.length();i++) {
+			newDays += days.charAt(i) + "%";
+		} 
+		
+		return tripRepository.getTripsWithSameDestination(fromPostal1, toPostal1, newDays, timeOfDay, customerId);
 	};
 	
 	public Trip findById(Integer id) {

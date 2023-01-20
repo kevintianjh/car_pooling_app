@@ -64,9 +64,10 @@ public class TripController {
 	public List<Trip> getTripsWithSameDestination(@RequestParam("fromPostal") String fromPostal, 
 			                                      @RequestParam("toPostal") String toPostal, 
 			                                      @RequestParam("days") String days, 
-			                                      @RequestParam("timeOfDay") String timeOfDay) {
+			                                      @RequestParam("timeOfDay") String timeOfDay,
+			                                      @RequestParam("header_id") String customerId) {
 		
-		return tripService.getTripsWithSameDestination(fromPostal, toPostal, days, timeOfDay);
+		return tripService.getTripsWithSameDestination(fromPostal, toPostal, days, timeOfDay, customerId);
 	}
 
 
@@ -76,7 +77,12 @@ public class TripController {
 		Integer tripId = Integer.parseInt(request.getParameter("id"));
 		
 		Trip retrievedTrip = this.tripService.findById(tripId);
-		if(retrievedTrip.getCustomer().getId() != customerId) {
+		
+		System.out.println("customerId is " + customerId);
+		System.out.println("retrievedTrip customer id is " + retrievedTrip.getCustomer().getId());
+		
+		
+		if(!retrievedTrip.getCustomer().getId().equals(customerId)) {
 			throw new RuntimeException("Object don't belong to customer!");
 		}
 		retrievedTrip.setFromPostal(request.getParameter("fromPostal"));
@@ -99,7 +105,7 @@ public class TripController {
 		
 		Trip retrievedTrip = this.tripService.findById(tripId);
 		
-		if(retrievedTrip.getCustomer().getId() != customerId) {
+		if(!retrievedTrip.getCustomer().getId().equals(customerId)) {
 			throw new RuntimeException("Object don't belong to customer!");
 		}
 		
@@ -107,6 +113,5 @@ public class TripController {
 		JsonResponseBase rsp = new JsonResponseBase();
 		rsp.header_rsp = "ok";
 		return rsp;
-	} 
-
+	}  
 }

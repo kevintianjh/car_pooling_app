@@ -34,7 +34,7 @@ public class DiscussionMessage {
 	
 	@Column(name = "date")
 	private Date date;
-	
+	 
 	private long longDate;
 
 	public Integer getId() {
