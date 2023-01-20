@@ -13,6 +13,9 @@ import com.accenture.carpooling.exception.ResourceNotFoundException;
 import com.accenture.carpooling.repository.CustomerRepository;
 import com.accenture.carpooling.repository.TripRepository;
 
+/* Author: Eugene, Kevin
+ * Purpose: Business Logic for Trip CRUD functions.
+ */
 @Service
 public class TripService {
 	

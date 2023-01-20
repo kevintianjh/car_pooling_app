@@ -6,7 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query; 
 import com.accenture.carpooling.entity.DiscussionMessage;
 import com.accenture.carpooling.entity.DiscussionRoom;
-
+/* Author: Kevin
+ * Purpose: Additional selection of DiscussionMessage with specific search
+ * Extends JPA Repository CRUD functions
+ */
+ 
 public interface DiscussionMessageRepository extends JpaRepository<DiscussionMessage, Integer> {
 	
 	@Query("SELECT dm FROM DiscussionMessage dm WHERE dm.discussionRoom=?1")

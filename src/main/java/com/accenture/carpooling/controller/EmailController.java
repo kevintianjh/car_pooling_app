@@ -11,6 +11,9 @@ import com.accenture.carpooling.service.CustomerService;
 import com.accenture.carpooling.service.EmailService; 
 import jakarta.servlet.http.HttpServletRequest;
 
+/* Author: Eugene
+ * Purpose: To handle email sending
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/customer")
@@ -25,14 +28,13 @@ public class EmailController {
 		Integer toCustomerId = Integer.parseInt(request.getParameter("to_id"));
 		String message = request.getParameter("message");
 		
-		System.out.println("HELLO " + message);
-		
 		Customer customer = this.customerService.findById(customerId);
 		Customer toCustomer = this.customerService.findById(toCustomerId);
 		
 		System.out.println("HELLO " + toCustomer);
 		
-		String mailTo = "tianjhenhaokevin@gmail.com";
+		//Hardcoded mailTo as static during development stage
+		String mailTo = "eugene91@msn.com";
 		String subject = "Tompang: Message from @" + customer.getUsername(); 
 		
 		this.emailService.sendEmail(mailTo, subject, message);

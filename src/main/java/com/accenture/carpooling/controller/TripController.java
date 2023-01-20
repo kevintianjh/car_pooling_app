@@ -1,7 +1,6 @@
 package com.accenture.carpooling.controller;
 
-import java.util.List;
-
+import java.util.List; 
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.web.bind.annotation.CrossOrigin; 
 import org.springframework.web.bind.annotation.GetMapping;  
@@ -16,6 +15,10 @@ import com.accenture.carpooling.json.JsonResponseBase;
 import com.accenture.carpooling.service.DiscussionRoomService;
 import com.accenture.carpooling.service.TripService; 
 import jakarta.servlet.http.HttpServletRequest;
+
+/* Author: Eugene, Kevin Tian
+ * Purpose: Business logic for Trip
+ */
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
@@ -76,11 +79,7 @@ public class TripController {
 		Integer customerId = Integer.parseInt(request.getParameter("header_id"));
 		Integer tripId = Integer.parseInt(request.getParameter("id"));
 		
-		Trip retrievedTrip = this.tripService.findById(tripId);
-		
-		System.out.println("customerId is " + customerId);
-		System.out.println("retrievedTrip customer id is " + retrievedTrip.getCustomer().getId());
-		
+		Trip retrievedTrip = this.tripService.findById(tripId); 
 		
 		if(!retrievedTrip.getCustomer().getId().equals(customerId)) {
 			throw new RuntimeException("Object don't belong to customer!");

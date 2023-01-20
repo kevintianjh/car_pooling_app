@@ -1,11 +1,13 @@
 package com.accenture.carpooling.config;
 
-import java.util.Properties;
-
+import java.util.Properties; 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+/* Author: Eugene, Kevin Tian
+ * Purpose: To configure email system
+ */
 @Configuration
 public class EmailConfig {
 	

@@ -12,6 +12,10 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import com.accenture.carpooling.entity.Customer;
 import com.accenture.carpooling.service.CustomerService; 
 
+/* Author: Kevin Tian
+ * Purpose: Additional business logic for DiscussionRoom
+ */
+
 @Controller
 public class DiscussionRoomController2 { 
 	@Autowired SimpMessagingTemplate simpMessagingTemplate;

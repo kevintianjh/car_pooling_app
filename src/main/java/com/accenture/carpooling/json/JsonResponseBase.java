@@ -1,5 +1,7 @@
 package com.accenture.carpooling.json;
-
+/* Author: Kevin
+ * 
+ */
 public class JsonResponseBase {
 	public String header_rsp = "bad";
 	public Object header_error = null;

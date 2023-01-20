@@ -5,6 +5,10 @@ import java.util.Random;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component; 
 
+/* Author: Kevin Tian
+ * Purpose: The handle the Authentication logic 
+ */
+
 @Component
 public class AuthenticationHandler {  
 	public static final long SESSION_EXPIRY = 3600000;

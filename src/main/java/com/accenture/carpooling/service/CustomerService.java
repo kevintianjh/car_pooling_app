@@ -5,6 +5,9 @@ import com.accenture.carpooling.entity.Customer;
 import com.accenture.carpooling.repository.CustomerRepository;
 import com.accenture.carpooling.exception.ResourceNotFoundException;
  
+/* Author:Eugene , Kevin
+ * Purpose: Business logic for CRUD functions of customer object
+ */
 @Service
 public class CustomerService {
 	

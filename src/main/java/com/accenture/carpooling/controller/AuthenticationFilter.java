@@ -16,7 +16,11 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 
-
+/* Author: Kevin Tian
+ * Purpose: This filter will be executed on every http request to verify
+ * the passed in parameters header_id, header_role, header_expiry and 
+ * header_signature to check the integrity of the call 
+ */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @CrossOrigin(origins="http://localhost:4200")
@@ -37,14 +41,7 @@ public class AuthenticationFilter implements Filter {
 		String uri = req.getRequestURI(); 
 		JsonResponseBase jsonRspBase = new JsonResponseBase();
 		 
-		if(uri.startsWith("/admin")) {
-			if(!this.authenticationHandler.verifyRequest(role, id, expiry, signature) || !role.equals("admin")) {
-				jsonRspBase.header_error="auth_failed";
-				response.getWriter().println(objectMapper.writeValueAsString(jsonRspBase));
-				return;
-			}
-		}
-		else if(uri.startsWith("/customer")) {
+		if(uri.startsWith("/customer")) {
 			if(!this.authenticationHandler.verifyRequest(role, id, expiry, signature) || !role.equals("customer")) {
 				jsonRspBase.header_error="auth_failed";
 				response.getWriter().println(objectMapper.writeValueAsString(jsonRspBase));

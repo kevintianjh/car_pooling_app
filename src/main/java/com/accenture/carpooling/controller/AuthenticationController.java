@@ -13,6 +13,9 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException; 
 
+/* Author: Kevin Tian
+ * Purpose: To authenticate users
+ */
 @RestController
 @CrossOrigin(origins="http://localhost:4200")
 public class AuthenticationController { 
@@ -58,6 +61,7 @@ public class AuthenticationController {
 		return jsRsp;  
 	}  
 	
+	//Test method to insert dummy DB records
 	@RequestMapping("/test")
 	public String test() {
 		Customer cust = this.customerService.findByEmail("kevin@gmail.com");

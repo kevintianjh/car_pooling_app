@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component; 
 import com.accenture.carpooling.entity.DiscussionRoom;
 import com.accenture.carpooling.repository.DiscussionRoomRepository;
+/* Author: Kevin
+ Purpose: Business logic for DiscussionRoom CRUD functions 
+ */
 
 @Component
 public class DiscussionRoomService {

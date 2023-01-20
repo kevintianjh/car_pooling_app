@@ -24,6 +24,10 @@ import com.accenture.carpooling.service.DiscussionRoomService;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 
+/* Author: Kevin Tian
+ * Purpose: Business logic for discussion room
+ */
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/customer")
@@ -43,6 +47,7 @@ public class DiscussionRoomController {
 		public DiscussionMessage added_message;
 	}
 	
+	//Method to be called when Discussion Room is first loaded
 	@GetMapping("/discussion-room/list")
 	public JsonResponse m1(HttpServletRequest request) { 
 		int customerId = Integer.parseInt(request.getParameter("header_id")); 
@@ -61,6 +66,7 @@ public class DiscussionRoomController {
 		return jsRsp;
 	}
 	
+	//Method to be called when user change page
 	@GetMapping("/discussion-message/list")
 	public JsonResponse m2(HttpServletRequest request) {
 		int page = Integer.parseInt(request.getParameter("page"));
@@ -77,6 +83,7 @@ public class DiscussionRoomController {
 		return jsRsp;
 	}
 	
+	//Method to be called when we add a new message
 	@GetMapping("/discussion-message/add")
 	public JsonResponse m3(HttpServletRequest request) {
 		String message = request.getParameter("message");
@@ -102,6 +109,7 @@ public class DiscussionRoomController {
 		return jsRsp;
 	}
 	
+	//Method to be called when uploading a new file
 	@PostMapping("/discussion-message/add-file")
 	public JsonResponse m4(@RequestParam("file") MultipartFile file,
 						   @RequestParam("header_id") int customerId,
@@ -139,6 +147,7 @@ public class DiscussionRoomController {
 		return jsRsp;
 	}
 	
+	//Generate random file name for upload
 	public String generateRandomFileName() { 
 		StringBuilder secret = new StringBuilder(); 
 		Random rand = new Random();

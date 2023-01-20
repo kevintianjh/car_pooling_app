@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 import com.accenture.carpooling.entity.DiscussionMessage;
 import com.accenture.carpooling.entity.DiscussionRoom;
 import com.accenture.carpooling.repository.DiscussionMessageRepository;
-
+/* Author: Kevin
+ * Purpose: Business logic for creating and reading DiscussionMessage
+ */
 @Component
 public class DiscussionMessageService {
 	@Autowired private DiscussionMessageRepository discussionMessageRepository;

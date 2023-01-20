@@ -5,6 +5,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+/* Author: Eugene
+ * Purpose: EmailService as a component
+ */
 @Component
 public class EmailService {
 	@Autowired private JavaMailSender javaMailSender;
