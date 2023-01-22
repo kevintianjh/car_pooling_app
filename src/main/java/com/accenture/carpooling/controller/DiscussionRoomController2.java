@@ -20,8 +20,7 @@ import com.accenture.carpooling.service.CustomerService;
 
 @Controller
 public class DiscussionRoomController2 { 
-	@Autowired SimpMessagingTemplate simpMessagingTemplate;
-	@Autowired CustomerService customerService;
+	@Autowired SimpMessagingTemplate simpMessagingTemplate; 
 	
 	public static class DiscussionRoomJson {
 		public String dr_id;
