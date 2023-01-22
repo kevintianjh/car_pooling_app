@@ -8,7 +8,9 @@ import org.springframework.context.event.EventListener;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller; 
-import org.springframework.web.socket.messaging.SessionDisconnectEvent; 
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+
+import com.accenture.carpooling.config.MyHandshakeHandler.MyPrincipal;
 import com.accenture.carpooling.entity.Customer;
 import com.accenture.carpooling.service.CustomerService; 
 
@@ -59,18 +61,16 @@ public class DiscussionRoomController2 {
 	@MessageMapping("/check-in")
 	public void joinRoom(Principal principal, DiscussionRoomJson drJson) {
 		Integer drIdInt = Integer.parseInt(drJson.dr_id);
-		Integer customerId = Integer.parseInt(principal.getName());
-		
-		Customer customer = this.customerService.findById(customerId);
+		MyPrincipal myPrincipal = (MyPrincipal)principal;  
 		
 		//Remove this customer from all list to keep list clean
-		removeUser(customerId);
+		removeUser(myPrincipal.getId());
 		
 		if(!this.usersOnlineMap.containsKey(drIdInt)) {
 			this.usersOnlineMap.put(drIdInt, new HashMap<>());
 		}
 		 
-		this.usersOnlineMap.get(drIdInt).put(customerId, customer.getUsername());  
+		this.usersOnlineMap.get(drIdInt).put(myPrincipal.getId(), myPrincipal.getUsername());  
 		
 		//Broadcast to all subscribers that someone joined
 		this.simpMessagingTemplate.convertAndSend("/client/users-online/" + drIdInt, this.usersOnlineMap.get(drIdInt).values());
@@ -92,10 +92,9 @@ public class DiscussionRoomController2 {
 	
 	@EventListener
 	private void handleSessionDisconnect(SessionDisconnectEvent event) throws Exception {  
-		Principal principal = event.getUser(); 
-		Integer customerId = Integer.parseInt(principal.getName());
+		MyPrincipal principal = (MyPrincipal)event.getUser();   
 		
 		//Final check to be sure customer is not inside "users online" list
-		removeUser(customerId);
+		removeUser(principal.getId());
 	} 
 }

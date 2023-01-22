@@ -1,7 +1,5 @@
 package com.accenture.carpooling.config;
-  
-import java.security.Principal;
-
+   
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration; 
 import org.springframework.messaging.simp.config.MessageBrokerRegistry; 
@@ -11,21 +9,8 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
   
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {  
-	
-  @Autowired private MyHandshakeHandler myHandshakeHandler;
-	
-  public static class MyPrincipal implements Principal {  
-	private String name;
-	
-	public MyPrincipal(String name) {
-		this.name = name;
-	}
-	@Override
-	public String getName() {
-		return name;
-	} 
-  }
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {   
+  @Autowired private MyHandshakeHandler myHandshakeHandler; 
  
   @Override
   public void configureMessageBroker(MessageBrokerRegistry config) {
