@@ -15,6 +15,7 @@ import com.accenture.carpooling.json.JsonResponseBase;
 import com.accenture.carpooling.service.DiscussionRoomService;
 import com.accenture.carpooling.service.TripService; 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 /* Author: Eugene, Kevin Tian
  * Purpose: Business logic for Trip
@@ -72,31 +73,31 @@ public class TripController {
 		
 		return tripService.getTripsWithSameDestination(fromPostal, toPostal, days, timeOfDay, customerId);
 	}
-
-
+	
 	@PostMapping("/trip/update")
-	public JsonResponseBase updateTrip(HttpServletRequest request) {
+	public JsonResponseBase updateTrip(@Valid Trip updatedTrip, HttpServletRequest request) {
 		Integer customerId = Integer.parseInt(request.getParameter("header_id"));
 		Integer tripId = Integer.parseInt(request.getParameter("id"));
+		
+		//Validate "days" string
+		if(!this.tripService.validateDaysString(updatedTrip.getDays())) {
+			throw new RuntimeException("'days' string is not valid!");
+		}
 		
 		Trip retrievedTrip = this.tripService.findById(tripId); 
 		
 		if(!retrievedTrip.getCustomer().getId().equals(customerId)) {
 			throw new RuntimeException("Object don't belong to customer!");
-		}
-		retrievedTrip.setFromPostal(request.getParameter("fromPostal"));
-		retrievedTrip.setToPostal(request.getParameter("toPostal"));
-		retrievedTrip.setDays(request.getParameter("days"));
-		retrievedTrip.setDescription(request.getParameter("description"));
-		retrievedTrip.setRole(Integer.parseInt(request.getParameter("role")));
-		retrievedTrip.setTimeOfDay((request.getParameter("timeOfDay"))); 
-		this.tripService.save(retrievedTrip); 
+		} 
+		 
+		updatedTrip.setCustomer(retrievedTrip.getCustomer());
+		this.tripService.save(updatedTrip); 
 		
 		JsonResponseBase rsp = new JsonResponseBase();
 		rsp.header_rsp = "ok";
 		return rsp;
-	}
-	
+	} 
+  
 	@PostMapping("/trip/delete")
 	public JsonResponseBase deleteTrip(HttpServletRequest request) {
 		Integer customerId = Integer.parseInt(request.getParameter("header_id"));

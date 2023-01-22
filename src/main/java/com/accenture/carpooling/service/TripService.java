@@ -1,16 +1,12 @@
 package com.accenture.carpooling.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
+import java.util.List; 
+import org.springframework.beans.factory.annotation.Autowired; 
+import org.springframework.stereotype.Service; 
 import com.accenture.carpooling.entity.Customer;
 import com.accenture.carpooling.entity.Trip;
-import com.accenture.carpooling.exception.ResourceNotFoundException;
-import com.accenture.carpooling.repository.CustomerRepository;
+import com.accenture.carpooling.exception.ResourceNotFoundException; 
 import com.accenture.carpooling.repository.TripRepository;
 
 /* Author: Eugene, Kevin
@@ -76,5 +72,20 @@ public class TripService {
 	public void save(Trip trip) {
 		this.tripRepository.save(trip);
 	}
-
+	
+	//Validate 'days' string to ensure that there is no duplicate in the string
+	public boolean validateDaysString(String daysStr) { 
+		ArrayList<Character> charList = new ArrayList<>();
+		
+		for(int i=0;i<daysStr.length();i++) {
+			if(charList.contains(daysStr.charAt(i))) {
+				return false;
+			}
+			else {
+				charList.add(daysStr.charAt(i));
+			}
+		}
+		
+		return true; 
+	} 
 }
