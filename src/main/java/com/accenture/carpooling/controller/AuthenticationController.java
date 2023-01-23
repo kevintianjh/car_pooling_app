@@ -4,14 +4,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController; 
-import com.accenture.carpooling.entity.Customer;
+import org.springframework.web.bind.annotation.RestController;  
+import com.accenture.carpooling.entity.CustomerLogin;
 import com.accenture.carpooling.json.JsonResponseBase;
 import com.accenture.carpooling.service.AuthenticationHandler;
-import com.accenture.carpooling.service.CustomerService; 
-import java.util.Date; 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException; 
+import com.accenture.carpooling.service.CustomerLoginService;  
+import java.util.NoSuchElementException; 
+import org.springframework.beans.factory.annotation.Autowired; 
 
 /* Author: Kevin Tian
  * Purpose: To authenticate users
@@ -23,12 +22,12 @@ public class AuthenticationController {
 	static class JsonResponse extends JsonResponseBase {}  
 	 
 	@Autowired private AuthenticationHandler authenticationHandler;  
-	@Autowired private CustomerService customerService;
+	@Autowired private CustomerLoginService customerLoginService;
 	 
 	@RequestMapping("/authenticate")  
 	public @ResponseBody JsonResponse m1(HttpServletRequest req) {
 		 
-		JsonResponse jsRsp = new JsonResponse();
+		JsonResponse jsRsp = new JsonResponse(); 
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		String role = req.getParameter("role");
@@ -41,35 +40,23 @@ public class AuthenticationController {
 			return jsRsp;
 		}
 		
-		Customer customer = null;  
+		CustomerLogin customerLogin = null;
 		
 		try {
-			customer = this.customerService.findByEmail(email); 
+			customerLogin = this.customerLoginService.findByEmail(email); 
 		}
-		catch(EmptyResultDataAccessException e) {}
+		catch(NoSuchElementException e) {}
 		
-		if(customer == null || !customer.isPasswordMatch(password)) {
+		if(customerLogin == null || !customerLogin.isPasswordMatch(password)) {
 			return jsRsp;
-		} 
+		}  
 		  
 		jsRsp.header_rsp = "ok";
 		jsRsp.header_expiry = this.authenticationHandler.generateUpdatedExpiry();
 		jsRsp.header_role = role;
-		jsRsp.header_id = String.valueOf(customer.getId()); 
-		jsRsp.header_signature = this.authenticationHandler.generateSignature(jsRsp.header_role, String.valueOf(customer.getId()), jsRsp.header_expiry);
+		jsRsp.header_id = String.valueOf(customerLogin.getCustomer().getId()); 
+		jsRsp.header_signature = this.authenticationHandler.generateSignature(jsRsp.header_role, jsRsp.header_id, jsRsp.header_expiry);
 		
 		return jsRsp;  
-	}  
-	
-	//Test method to insert dummy DB records
-	@RequestMapping("/test")
-	public String test() {
-		Customer cust = this.customerService.findByEmail("kevin@gmail.com");
-		cust.setNewPassword("password");
-		cust.setUsername("kevin123");
-		cust.setDob(new Date());
-		cust.setPhone("91993718");
-		this.customerService.save(cust);
-		return "HEHE!";
-	}
+	}   
 } 
