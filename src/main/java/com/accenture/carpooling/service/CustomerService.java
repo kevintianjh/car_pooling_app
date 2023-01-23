@@ -4,10 +4,8 @@ import org.springframework.stereotype.Service;
 import com.accenture.carpooling.entity.Customer;
 import com.accenture.carpooling.entity.CustomerLogin;
 import com.accenture.carpooling.repository.CustomerLoginRepository;
-import com.accenture.carpooling.repository.CustomerRepository;
-
-import jakarta.transaction.Transactional;
-
+import com.accenture.carpooling.repository.CustomerRepository; 
+import jakarta.transaction.Transactional; 
 import com.accenture.carpooling.exception.ResourceNotFoundException;
  
 /* Author: Eugene, Kevin
