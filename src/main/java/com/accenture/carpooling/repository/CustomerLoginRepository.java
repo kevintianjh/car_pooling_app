@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.accenture.carpooling.entity.Customer;
 import com.accenture.carpooling.entity.CustomerLogin;
 
-public interface CustomerLoginRepository extends JpaRepository<CustomerLogin, Customer> {
+public interface CustomerLoginRepository extends JpaRepository<CustomerLogin, Integer> {
 	
 	@Query("SELECT cl FROM CustomerLogin cl WHERE cl.customer.email=?1")
 	public Optional<CustomerLogin> findByEmail(String email);
